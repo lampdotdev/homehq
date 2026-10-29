@@ -170,8 +170,11 @@
 
       D.save();
     } finally { taking = false; }
-    // What this copy holds now is in step with the others: nothing of it to put back.
-    share(true);
+    // What this copy holds now is in step with the others: nothing of it to put back. Except a family set up here
+    // that was never shared (set up before the screens shared, or while this copy was on its own): all of it goes out
+    // now, so the other screens see it.
+    var unshared = D.cleared && !S.settings.all().some(function (s) { return s.id === 'cleared' && s.value; });
+    share(!unshared);
     // The album turned off on another copy: back to the examples, as on the copy where it was turned off.
     if (examplesBack) App.loadPhotos();
     if (newPlace) App.loadWeather();
