@@ -144,7 +144,8 @@
       // Today's ticks, once any copy has ticked or unticked something today; until then the examples' own.
       var ticks = {}, heard = false;
       S.ticks.all().forEach(function (t) { if (t.day === today()) { heard = true; if (!t.gone) ticks[t.chore] = t.by || true; } });
-      if (heard || D.edited.chores || D.cleared) {
+      // Not for a family never shared: its own ticks today go out with its chores below.
+      if (!unshared && (heard || D.edited.chores || D.cleared)) {
         D.chores.forEach(function (c) { c.done = !!ticks[c.id]; c.doneBy = typeof ticks[c.id] === 'string' && ticks[c.id] ? ticks[c.id] : undefined; });
       }
 
