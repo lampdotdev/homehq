@@ -65,8 +65,31 @@
       '<div class="sheet-actions sheet-actions--start">' +
       '<button class="btn btn--solid" data-start>Set up my family</button>' +
       '<button class="btn btn--ghost" data-example>Show me an example</button></div>' +
-      (native() ? '' : '<p class="ed-note">Or set it up on your Mac, iPhone or iPad: this screen follows.</p>') +
+      '<p class="ed-note" data-link>' + linkLine() + '</p>' +
       '</div>';
+  }
+
+  // Whether another copy of the screen is open now to bring the family over from: a family set up on the Mac or the
+  // iPad reaches this one only while both are open on the same Wi‑Fi.
+  function otherCopies() {
+    var W = window.Lamp && Lamp.wish, n = 0;
+    if (!W || !W.apps) return 0;
+    var me = W.copy ? W.copy() : '';
+    W.apps().forEach(function (a) { (a.copies || []).forEach(function (c) { if (c.id !== me) n++; }); });
+    return n;
+  }
+  function linkLine() {
+    var n = otherCopies();
+    if (n) return 'Home HQ is open on ' + (n === 1 ? 'another screen' : n + ' other screens') +
+      '. If your family is set up there, it shows here in a moment.';
+    return native() ? 'Already set up on another screen? Open Home HQ there too, and your family comes over.'
+      : 'Already set up on your Mac or iPad? Open Home HQ there, on the same Wi‑Fi, and your family shows here.';
+  }
+  if (window.Lamp && Lamp.wish && Lamp.wish.onApps) {
+    Lamp.wish.onApps(function () {
+      var el = document.querySelector('[data-link]');
+      if (el) el.textContent = linkLine();
+    });
   }
 
   function familyHTML() {

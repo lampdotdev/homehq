@@ -137,7 +137,9 @@ the others at once while they're on the same Wi‑Fi, and when they next meet ot
 call `App.emit('data')`: that's what saves and shares a change, so every change must call it. An example changed is
 kept as the family's; one taken away is kept, marked `gone: true`, so it stays away. Each device also keeps its own
 copy with `LampStore` under "homehq" (`DATA.save`, `DATA.snapshot`, `DATA.restore`). Only add fields to what's saved
-or shared, never rename one.
+or shared, never rename one. A copy that is set up but finds no `cleared` in the shared settings (set up before it
+shared) puts everything it holds as it opens, so the other screens get the family. The welcome says whether another
+copy is open to bring the family from (`linkLine` in `views/setup.js`).
 
 ## Where it's shown
 
