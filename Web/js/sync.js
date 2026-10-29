@@ -122,6 +122,10 @@
   // ------------------------------------------------------------ what the copies have, into DATA
   function take() {
     var examplesBack = false, newPlace = false;
+    // A family set up here that was never shared (set up before the screens shared, or while this copy was on its
+    // own): what it holds is kept, not replaced by the shared lists, which don't have it yet, and all of it goes out
+    // below, so the other screens see it.
+    var unshared = D.cleared && !S.settings.all().some(function (s) { return s.id === 'cleared' && s.value; });
     taking = true;
     try {
       var settings = {};
@@ -136,7 +140,7 @@
       if (people.length) { D.people = people; D.edited.people = true; D.ALL = D.humanIds(); }
 
       var chores = S.chores.all();
-      if (chores.length || D.cleared) { D.chores = chores; D.edited.chores = true; }
+      if (!unshared && (chores.length || D.cleared)) { D.chores = chores; D.edited.chores = true; }
       // Today's ticks, once any copy has ticked or unticked something today; until then the examples' own.
       var ticks = {}, heard = false;
       S.ticks.all().forEach(function (t) { if (t.day === today()) { heard = true; if (!t.gone) ticks[t.chore] = t.by || true; } });
@@ -146,14 +150,16 @@
 
       var groceries = {};
       S.groceries.all().forEach(function (g) { groceries[g.id] = g; });
-      if (Object.keys(groceries).length || D.cleared) {
+      if (!unshared && (Object.keys(groceries).length || D.cleared)) {
         D.groceries = (D.cleared ? [] : D.examples.groceries.filter(function (g) { return !groceries[g.id]; }).map(function (g) { return Object.assign({}, g); }))
           .concat(Object.keys(groceries).map(function (id) { return groceries[id]; }).filter(function (g) { return !g.gone; }));
       }
 
-      D.events = D.events.filter(function (e) { return e.ex || e.cal; }).concat(S.events.all().map(function (e) {
-        return Object.assign({}, e, { start: new Date(e.start), end: new Date(e.end) });
-      }));
+      if (!unshared) {
+        D.events = D.events.filter(function (e) { return e.ex || e.cal; }).concat(S.events.all().map(function (e) {
+          return Object.assign({}, e, { start: new Date(e.start), end: new Date(e.end) });
+        }));
+      }
       // Another copy's calendars, only while they're turned on: once off, what it published shows nowhere.
       if (!App.readsCalendars()) {
         D.events = D.events.filter(function (e) { return !e.cal; }).concat(!D.settings.calendars ? [] : S.calendar.all().map(function (e) {
@@ -170,10 +176,7 @@
 
       D.save();
     } finally { taking = false; }
-    // What this copy holds now is in step with the others: nothing of it to put back. Except a family set up here
-    // that was never shared (set up before the screens shared, or while this copy was on its own): all of it goes out
-    // now, so the other screens see it.
-    var unshared = D.cleared && !S.settings.all().some(function (s) { return s.id === 'cleared' && s.value; });
+    // What this copy holds now is in step with the others: nothing of it to put back, unless it was never shared.
     share(!unshared);
     // The album turned off on another copy: back to the examples, as on the copy where it was turned off.
     if (examplesBack) App.loadPhotos();
