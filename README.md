@@ -4,21 +4,21 @@
 
 <p align="center">Wes Bos's family dashboard: the day, calendar, chores, shopping and photos at a glance.</p>
 
-<p align="center"><a href="#remix-it-with-lamp">Remix it with Lamp</a></p>
+<p align="center"><a href="https://lamp.dev/?repo=https://github.com/lampdotdev/homehq&amp;from=readme"><img src=".github/open-in-lamp.svg" width="164" height="48" alt="Open in Lamp"></a></p>
 
 <p align="center"><img src=".github/preview.png" width="720" alt="Home HQ"></p>
 
 ## Make Home HQ yours
 
-It's yours to change by asking Lamp. A few places to start:
+Each opens Lamp with a copy of Home HQ and that change, ready to send:
 
-- Put it on our kitchen tablet
-- Put it on our photo frame
-- Add a countdown to school
+- [Put it on our kitchen tablet](https://lamp.dev/?repo=https://github.com/lampdotdev/homehq&from=readme&ask=Put%20it%20on%20our%20kitchen%20tablet)
+- [Put it on our photo frame](https://lamp.dev/?repo=https://github.com/lampdotdev/homehq&from=readme&ask=Put%20it%20on%20our%20photo%20frame)
+- [Add a countdown to school](https://lamp.dev/?repo=https://github.com/lampdotdev/homehq&from=readme&ask=Add%20a%20countdown%20to%20school)
 
-## Remix it with Lamp
+## Open it in Lamp
 
-[Lamp](https://lamp.dev) is a Mac app that builds apps from a description and changes them as you ask. In Lamp, choose File → Open from GitHub… and paste `https://github.com/lampdotdev/homehq`: you get this exact wish, yours to change, with the credits below kept.
+[Lamp](https://lamp.dev) is a Mac app that builds apps from a description and changes them as you ask. [Open Home HQ in Lamp](https://lamp.dev/?repo=https://github.com/lampdotdev/homehq&from=readme) for a copy of your own, to use and to change as you like, with the credits below kept. Or, in Lamp, choose File → Open from GitHub… and paste `https://github.com/lampdotdev/homehq`.
 
 ## Building it
 
