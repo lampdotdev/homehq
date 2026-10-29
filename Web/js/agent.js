@@ -80,9 +80,17 @@
     }
     return 'Did ' + d.name;
   }
+  // What a failed call was trying to do, as it follows "Couldn't": DOING's words are for while it runs ("Ticking off").
+  var CANT = { addGrocery: ['add ', ''], checkGrocery: ['tick off ', ''], completeChore: ['mark ', ' done'],
+               uncompleteChore: ['take back ', ''], addEvent: ['add ', ' to the calendar'] };
+  function cant(f) {
+    var how = CANT[f.name];
+    if (how) return how[0] + (f.args.name || f.args.title || 'it') + how[1];
+    return DOING[f.name] ? DOING[f.name].replace(/^Looking/, 'look').toLowerCase() : 'do ' + f.name;
+  }
   function receipt(r) {
     var lines = r.done.map(said);
-    r.failed.forEach(function (f) { lines.push('Couldn\'t ' + (DOING[f.name] || f.name).toLowerCase() + ' ' + (f.args.name || f.args.title || '') + ': ' + f.reason.replace(/\.$/, '')); });
+    r.failed.forEach(function (f) { lines.push('Couldn\'t ' + cant(f) + ': ' + f.reason.replace(/\.$/, '')); });
     r.skipped.forEach(function (s) { lines.push('Didn\'t get to ' + (s.args.name || s.args.title || s.name)); });
     return lines.map(function (l) { return l.replace(/\s+:/, ':') + '.'; }).join(' ');
   }
