@@ -6,7 +6,9 @@
 
 <p align="center"><a href="https://lamp.dev/?repo=https://github.com/lampdotdev/homehq&amp;from=readme"><img src=".github/open-in-lamp.svg" width="164" height="48" alt="Open in Lamp"></a></p>
 
-<p align="center"><img src=".github/preview.png" width="720" alt="Home HQ"></p>
+<p align="center"><a href=".github/showcase/reel.mp4"><img src=".github/showcase/loop.webp" width="720" alt="Home HQ"></a></p>
+
+<p align="center"><a href=".github/showcase/reel.mp4">Watch it with sound</a></p>
 
 ## Make Home HQ yours
 
